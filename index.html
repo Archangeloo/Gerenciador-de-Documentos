@@ -562,20 +562,54 @@
             // Carrega dados de exemplo apenas se não foram inicializados
             if (!documentsInitialized) {
                 documents = {
-                    "meu INS": `
-            O Meu INSS deve conter o PDF do extrato de contribuição com todas as páginas legíveis e sem rasuras.<br><br>
-            Para gerar corretamente o documento em PDF, siga este passo a passo:<br><br>
-            1. Acesse o site: <a href="https://meu.inss.gov.br" target="_blank">https://meu.inss.gov.br</a><br>
-            2. Clique em "Entrar com gov.br" e faça login com seu CPF e senha.<br>
-            3. No menu inicial, selecione a opção "Extrato de Contribuição (CNIS)".<br>
-            4. Clique em "Baixar PDF" no final da página.<br><br>
-            O arquivo precisa estar completo, com todos os vínculos empregatícios visíveis.<br>
-            Se quiser, pode me enviar aqui o arquivo antes de anexar na plataforma para que eu confira se está tudo certo.
-          `,
-                    "RG": "O RG deve estar dentro do prazo de validade, frente e verso legíveis, sem dobras ou manchas.",
+                    "meu INSS": `
+                    O Meu INSS deve conter o PDF do extrato de contribuição com todas as páginas legíveis e sem rasuras.<br><br>
+                    Para gerar corretamente o documento em PDF, siga este passo a passo:<br><br>
+                    1. Acesse o site: <a href="https://meu.inss.gov.br" target="_blank">https://meu.inss.gov.br</a><br>
+                    2. Clique em "Entrar com gov.br" e faça login com seu CPF e senha.<br>
+                    3. No menu inicial, selecione a opção "Extrato de Contribuição (CNIS)".<br>
+                    4. Clique em "Baixar PDF" no final da página.<br><br>
+                    O arquivo precisa estar completo, com todos os vínculos empregatícios visíveis.<br>
+                    Se quiser, pode me enviar aqui o arquivo antes de anexar na plataforma para que eu confira se está tudo certo.`,
+
+                    "Comprovante de Residência": "Deve conter data de emissão e ter sido emitido há no máximo 3 meses. Verifique se todos os dados foram preenchidos corretamente, como CEP, logradouro e complemento.",
+
                     "CPF": "O CPF deve estar regular na Receita Federal. Verificar se não há pendências ou irregularidades.",
-                    "Comprovante de residência": "Deve ter no máximo 3 meses de emissão, em nome do titular ou com declaração de residência.",
-                    "Carteira de trabalho": "Todas as páginas devem estar legíveis, incluindo dados pessoais e registros de trabalho."
+
+
+                    "Carteira de Trabalho": "Anexar Carteira de trabalho digital, em pdf e contendo todos os vínculos.",
+
+                    "Conta Bancária": "Anexar comprovante contendo nome completo, agência e conta (verifique se todas as informações digitadas estão corretas). Lembrando que aceitamos apenas contas do banco Itaú.",
+
+                    "PIS": `
+                    É necessário informar o número do seu PIS/PASEP/NIT/NIS.<br><br>
+
+                    Caso não saiba o número, você pode consultar de forma rápida pelo site do Meu INSS.<br><br>
+
+                    Siga este passo a passo:<br><br>
+                    1. Acesse o site: <a href="https://meu.inss.gov.br" target="_blank">https://meu.inss.gov.br</a><br>
+                    2. Clique em "Entrar com gov.br" e faça login com seu CPF e senha.<br>
+                    3. No canto superior direito, clique sobre seu nome para abrir as informações do perfil.<br>
+                    4. O número do NIT será exibido — ele equivale ao seu PIS.<br><br>
+
+                    ⚠️ Certifique-se de copiar corretamente o número e incluir no campo solicitado na plataforma de envio de documentos.`,
+
+                    "Carta Proposta": " A carta proposta deve ser apenas uma folha de papel em branco.",
+
+                    "Exame Admissional": " Anexar o ASO (Atestado de Saúde Ocupacional) emitido após a realização do exame, em boa qualidade, com assinatura do médico e carimbo da clínica.",
+
+                    "Termo de Recursos Informáticos": "Deve ser assinado na própria plataforma",
+
+                    "Informações Complementares": "Preencher diretamente na plataforma",
+
+                    "Currículo Atualizado": "Anexar currículo atualizado",
+
+                    "Título de Eleitor": "Anexar frente e verso do documento, mostrando data de emissão, zona e seção. Verifique se todas as informações estão legíveis e corretas.",
+
+                    "RG": "Anexar frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão.",
+
+                   "Conflito de Interesses": "Anexar o termo assinado, seja digitalmente pelo site do GOV.br (<a href=\"https://www.gov.br/pt-br\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.gov.br/pt-br</a>) — para isso, faça login, envie o documento para assinatura, assine digitalmente e anexe o arquivo — ou impresso e assinado à mão."
+
                 };
                 documentsInitialized = true;
                 console.log('Documentos inicializados:', documents);
