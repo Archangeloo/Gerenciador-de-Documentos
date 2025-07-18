@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
@@ -37,7 +38,7 @@
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .header p {
@@ -97,7 +98,8 @@
             font-size: 1.1em;
         }
 
-        input[type="text"], textarea {
+        input[type="text"],
+        textarea {
             width: 100%;
             padding: 15px;
             border: 2px solid #e0e0e0;
@@ -107,7 +109,8 @@
             background: #f8f9fa;
         }
 
-        input[type="text"]:focus, textarea:focus {
+        input[type="text"]:focus,
+        textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -160,6 +163,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -280,26 +284,27 @@
                 margin: 10px;
                 border-radius: 15px;
             }
-            
+
             .content {
                 padding: 20px;
             }
-            
+
             .tabs {
                 flex-direction: column;
             }
-            
+
             .tab {
                 text-align: center;
                 border-bottom: 1px solid #e0e0e0;
             }
-            
+
             .header h1 {
                 font-size: 2em;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -319,12 +324,13 @@
                 <div class="form-group">
                     <label for="searchDocument">Digite o nome do documento:</label>
                     <div class="search-container">
-                        <input type="text" id="searchDocument" placeholder="Ex: meu INSS, RG, CPF..." autocomplete="off">
+                        <input type="text" id="searchDocument" placeholder="Ex: meu INSS, RG, CPF..."
+                            autocomplete="off">
                         <div class="search-suggestions" id="searchSuggestions"></div>
                     </div>
                 </div>
                 <button class="btn" onclick="searchDocument()">🔍 Buscar Orientações</button>
-                
+
                 <div class="result" id="searchResult">
                     <h3 id="resultTitle"></h3>
                     <p id="resultMessage"></p>
@@ -339,10 +345,11 @@
                 </div>
                 <div class="form-group">
                     <label for="documentMessage">Mensagem de Verificação:</label>
-                    <textarea id="documentMessage" placeholder="Ex: O meu INSS deve conter o PDF do extrato de contribuição..."></textarea>
+                    <textarea id="documentMessage"
+                        placeholder="Ex: O meu INSS deve conter o PDF do extrato de contribuição..."></textarea>
                 </div>
                 <button class="btn" onclick="addDocument()">💾 Salvar Documento</button>
-                
+
                 <div class="result" id="addResult">
                     <h3 id="addResultTitle"></h3>
                     <p id="addResultMessage"></p>
@@ -352,15 +359,19 @@
             <!-- Aba Gerenciar -->
             <div id="gerenciar" class="tab-content">
                 <h2 style="margin-bottom: 20px; color: #333;">📚 Documentos Cadastrados</h2>
-                
+
                 <!-- Botões de Exportar/Importar -->
                 <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="btn" onclick="exportDocuments()" style="background: #28a745;">📤 Exportar Dados</button>
-                    <button class="btn" onclick="document.getElementById('importFile').click()" style="background: #17a2b8;">📥 Importar Dados</button>
-                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDocuments(event)">
-                    <button class="btn" onclick="clearAllDocuments()" style="background: #dc3545;">🗑️ Limpar Tudo</button>
+                    <button class="btn" onclick="exportDocuments()" style="background: #28a745;">📤 Exportar
+                        Dados</button>
+                    <button class="btn" onclick="document.getElementById('importFile').click()"
+                        style="background: #17a2b8;">📥 Importar Dados</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;"
+                        onchange="importDocuments(event)">
+                    <button class="btn" onclick="clearAllDocuments()" style="background: #dc3545;">🗑️ Limpar
+                        Tudo</button>
                 </div>
-                
+
                 <div class="documents-list" id="documentsList">
                     <div class="empty-state">
                         <p>Nenhum documento cadastrado ainda.</p>
@@ -376,7 +387,7 @@
         let documentsInitialized = false;
 
         // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadDocuments();
             updateDocumentsList();
             setupSearchSuggestions();
@@ -387,7 +398,7 @@
             // Remove active de todas as abas
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
+
             // Adiciona active na aba selecionada
             document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
             document.getElementById(tabName).classList.add('active');
@@ -398,20 +409,20 @@
             const searchInput = document.getElementById('searchDocument');
             const suggestionsDiv = document.getElementById('searchSuggestions');
 
-            searchInput.addEventListener('input', function() {
+            searchInput.addEventListener('input', function () {
                 const query = this.value.toLowerCase().trim();
-                
+
                 if (query.length === 0) {
                     suggestionsDiv.style.display = 'none';
                     return;
                 }
 
-                const suggestions = Object.keys(documents).filter(doc => 
+                const suggestions = Object.keys(documents).filter(doc =>
                     doc.toLowerCase().includes(query)
                 );
 
                 if (suggestions.length > 0) {
-                    suggestionsDiv.innerHTML = suggestions.map(doc => 
+                    suggestionsDiv.innerHTML = suggestions.map(doc =>
                         `<div class="suggestion-item" onclick="selectSuggestion('${doc}')">${doc}</div>`
                     ).join('');
                     suggestionsDiv.style.display = 'block';
@@ -421,7 +432,7 @@
             });
 
             // Fechar sugestões ao clicar fora
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', function (e) {
                 if (!searchInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
                     suggestionsDiv.style.display = 'none';
                 }
@@ -522,7 +533,7 @@
         // Atualizar lista de documentos
         function updateDocumentsList() {
             const listDiv = document.getElementById('documentsList');
-            
+
             if (Object.keys(documents).length === 0) {
                 listDiv.innerHTML = '<div class="empty-state"><p>Nenhum documento cadastrado ainda.</p></div>';
                 return;
@@ -551,7 +562,16 @@
             // Carrega dados de exemplo apenas se não foram inicializados
             if (!documentsInitialized) {
                 documents = {
-                    "meu INSS": "O Meu INSS deve conter o PDF do extrato de contribuição com todas as páginas legíveis e sem rasuras. Para gerar corretamente o documento em PDF, siga este passo a passo:\n\n1. Acesse o site: https://meu.inss.gov.br\n\n2. Clique em 'Entrar com gov.br' e faça login com CPF e senha.\n\n3. No menu inicial, selecione a opção 'Extrato de Contribuição (CNIS)'.\n\n4. Clique em 'Baixar PDF' no final da página.\n\nO arquivo precisa estar completo, com todos os vínculos empregatícios visíveis. Se quiser, pode me enviar aqui o arquivo antes de anexar na plataforma para que eu confira se está tudo certo.",
+                    "meu INSS": `
+            O Meu INSS deve conter o PDF do extrato de contribuição com todas as páginas legíveis e sem rasuras.<br><br>
+            Para gerar corretamente o documento em PDF, siga este passo a passo:<br><br>
+            1. Acesse o site: <a href="https://meu.inss.gov.br" target="_blank">https://meu.inss.gov.br</a><br>
+            2. Clique em "Entrar com gov.br" e faça login com seu CPF e senha.<br>
+            3. No menu inicial, selecione a opção "Extrato de Contribuição (CNIS)".<br>
+            4. Clique em "Baixar PDF" no final da página.<br><br>
+            O arquivo precisa estar completo, com todos os vínculos empregatícios visíveis.<br>
+            Se quiser, pode me enviar aqui o arquivo antes de anexar na plataforma para que eu confira se está tudo certo.
+          `,
                     "RG": "O RG deve estar dentro do prazo de validade, frente e verso legíveis, sem dobras ou manchas.",
                     "CPF": "O CPF deve estar regular na Receita Federal. Verificar se não há pendências ou irregularidades.",
                     "Comprovante de residência": "Deve ter no máximo 3 meses de emissão, em nome do titular ou com declaração de residência.",
@@ -565,7 +585,7 @@
         // Exportar documentos
         function exportDocuments() {
             const dataStr = JSON.stringify(documents, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
             const url = URL.createObjectURL(dataBlob);
             const link = document.createElement('a');
             link.href = url;
@@ -580,7 +600,7 @@
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 try {
                     const importedData = JSON.parse(e.target.result);
                     if (confirm('Deseja substituir todos os documentos existentes pelos importados?')) {
@@ -605,18 +625,19 @@
         }
 
         // Permitir busca com Enter
-        document.getElementById('searchDocument').addEventListener('keypress', function(e) {
+        document.getElementById('searchDocument').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 searchDocument();
             }
         });
 
         // Permitir adicionar com Enter no campo de nome
-        document.getElementById('documentName').addEventListener('keypress', function(e) {
+        document.getElementById('documentName').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 document.getElementById('documentMessage').focus();
             }
         });
     </script>
 </body>
+
 </html>
