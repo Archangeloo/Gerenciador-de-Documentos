@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +23,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
@@ -38,7 +37,7 @@
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .header p {
@@ -98,8 +97,7 @@
             font-size: 1.1em;
         }
 
-        input[type="text"],
-        textarea {
+        input[type="text"], textarea {
             width: 100%;
             padding: 15px;
             border: 2px solid #e0e0e0;
@@ -109,8 +107,7 @@
             background: #f8f9fa;
         }
 
-        input[type="text"]:focus,
-        textarea:focus {
+        input[type="text"]:focus, textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -163,7 +160,6 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -219,6 +215,22 @@
             font-size: 0.9em;
             margin-top: 5px;
             max-width: 70%;
+        }
+
+        .btn-template {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-template:hover {
+            background: #218838;
+            transform: translateY(-1px);
         }
 
         .btn-delete {
@@ -284,27 +296,26 @@
                 margin: 10px;
                 border-radius: 15px;
             }
-
+            
             .content {
                 padding: 20px;
             }
-
+            
             .tabs {
                 flex-direction: column;
             }
-
+            
             .tab {
                 text-align: center;
                 border-bottom: 1px solid #e0e0e0;
             }
-
+            
             .header h1 {
                 font-size: 2em;
             }
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
@@ -324,16 +335,19 @@
                 <div class="form-group">
                     <label for="searchDocument">Digite o nome do documento:</label>
                     <div class="search-container">
-                        <input type="text" id="searchDocument" placeholder="Ex: meu INSS, RG, CPF..."
-                            autocomplete="off">
+                        <input type="text" id="searchDocument" placeholder="Ex: meu INSS, RG, CPF..." autocomplete="off">
                         <div class="search-suggestions" id="searchSuggestions"></div>
                     </div>
                 </div>
                 <button class="btn" onclick="searchDocument()">🔍 Buscar Orientações</button>
-
+                
                 <div class="result" id="searchResult">
                     <h3 id="resultTitle"></h3>
                     <p id="resultMessage"></p>
+                    <div id="templateImage" style="margin-top: 15px; display: none;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📷 Template de Exemplo:</h4>
+                        <img id="displayTemplate" style="max-width: 100%; max-height: 400px; border: 2px solid #667eea; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    </div>
                 </div>
             </div>
 
@@ -345,11 +359,10 @@
                 </div>
                 <div class="form-group">
                     <label for="documentMessage">Mensagem de Verificação:</label>
-                    <textarea id="documentMessage"
-                        placeholder="Ex: O meu INSS deve conter o PDF do extrato de contribuição..."></textarea>
+                    <textarea id="documentMessage" placeholder="Ex: O meu INSS deve conter o PDF do extrato de contribuição..."></textarea>
                 </div>
                 <button class="btn" onclick="addDocument()">💾 Salvar Documento</button>
-
+                
                 <div class="result" id="addResult">
                     <h3 id="addResultTitle"></h3>
                     <p id="addResultMessage"></p>
@@ -359,19 +372,15 @@
             <!-- Aba Gerenciar -->
             <div id="gerenciar" class="tab-content">
                 <h2 style="margin-bottom: 20px; color: #333;">📚 Documentos Cadastrados</h2>
-
+                
                 <!-- Botões de Exportar/Importar -->
                 <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="btn" onclick="exportDocuments()" style="background: #28a745;">📤 Exportar
-                        Dados</button>
-                    <button class="btn" onclick="document.getElementById('importFile').click()"
-                        style="background: #17a2b8;">📥 Importar Dados</button>
-                    <input type="file" id="importFile" accept=".json" style="display: none;"
-                        onchange="importDocuments(event)">
-                    <button class="btn" onclick="clearAllDocuments()" style="background: #dc3545;">🗑️ Limpar
-                        Tudo</button>
+                    <button class="btn" onclick="exportDocuments()" style="background: #28a745;">📤 Exportar Dados</button>
+                    <button class="btn" onclick="document.getElementById('importFile').click()" style="background: #17a2b8;">📥 Importar Dados</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDocuments(event)">
+                    <button class="btn" onclick="clearAllDocuments()" style="background: #dc3545;">🗑️ Limpar Tudo</button>
                 </div>
-
+                
                 <div class="documents-list" id="documentsList">
                     <div class="empty-state">
                         <p>Nenhum documento cadastrado ainda.</p>
@@ -387,7 +396,7 @@
         let documentsInitialized = false;
 
         // Inicialização
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             loadDocuments();
             updateDocumentsList();
             setupSearchSuggestions();
@@ -398,7 +407,7 @@
             // Remove active de todas as abas
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
+            
             // Adiciona active na aba selecionada
             document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
             document.getElementById(tabName).classList.add('active');
@@ -409,20 +418,20 @@
             const searchInput = document.getElementById('searchDocument');
             const suggestionsDiv = document.getElementById('searchSuggestions');
 
-            searchInput.addEventListener('input', function () {
+            searchInput.addEventListener('input', function() {
                 const query = this.value.toLowerCase().trim();
-
+                
                 if (query.length === 0) {
                     suggestionsDiv.style.display = 'none';
                     return;
                 }
 
-                const suggestions = Object.keys(documents).filter(doc =>
+                const suggestions = Object.keys(documents).filter(doc => 
                     doc.toLowerCase().includes(query)
                 );
 
                 if (suggestions.length > 0) {
-                    suggestionsDiv.innerHTML = suggestions.map(doc =>
+                    suggestionsDiv.innerHTML = suggestions.map(doc => 
                         `<div class="suggestion-item" onclick="selectSuggestion('${doc}')">${doc}</div>`
                     ).join('');
                     suggestionsDiv.style.display = 'block';
@@ -432,7 +441,7 @@
             });
 
             // Fechar sugestões ao clicar fora
-            document.addEventListener('click', function (e) {
+            document.addEventListener('click', function(e) {
                 if (!searchInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
                     suggestionsDiv.style.display = 'none';
                 }
@@ -452,6 +461,8 @@
             const resultDiv = document.getElementById('searchResult');
             const resultTitle = document.getElementById('resultTitle');
             const resultMessage = document.getElementById('resultMessage');
+            const templateDiv = document.getElementById('templateImage');
+            const templateImg = document.getElementById('displayTemplate');
 
             if (!query) {
                 alert('Por favor, digite o nome do documento.');
@@ -479,12 +490,25 @@
             }
 
             if (foundDoc) {
+                const message = typeof foundDoc === 'string' ? foundDoc : foundDoc.message;
+                const template = typeof foundDoc === 'object' ? foundDoc.template : null;
+
                 resultTitle.textContent = `📋 ${foundKey}`;
-                resultMessage.textContent = foundDoc;
+                resultMessage.innerHTML = message; // Usar innerHTML para suportar HTML
+
+                // Mostrar template se existir
+                if (template) {
+                    templateImg.src = template;
+                    templateDiv.style.display = 'block';
+                } else {
+                    templateDiv.style.display = 'none';
+                }
+
                 resultDiv.classList.add('show');
             } else {
                 resultTitle.textContent = '❌ Documento não encontrado';
                 resultMessage.textContent = `Não foi encontrada nenhuma orientação para "${query}". Você pode cadastrar este documento na aba "Cadastrar".`;
+                templateDiv.style.display = 'none';
                 resultDiv.classList.add('show');
             }
         }
@@ -493,29 +517,64 @@
         function addDocument() {
             const name = document.getElementById('documentName').value.trim();
             const message = document.getElementById('documentMessage').value.trim();
+            const templateFile = document.getElementById('documentTemplate').files[0];
             const resultDiv = document.getElementById('addResult');
             const resultTitle = document.getElementById('addResultTitle');
             const resultMessage = document.getElementById('addResultMessage');
 
             if (!name || !message) {
-                alert('Por favor, preencha todos os campos.');
+                alert('Por favor, preencha todos os campos obrigatórios.');
                 return;
             }
 
-            documents[name] = message;
-            saveDocuments();
-            updateDocumentsList();
+            // Se há uma imagem, processa ela
+            if (templateFile) {
+                // Verificar tamanho do arquivo (5MB = 5 * 1024 * 1024 bytes)
+                if (templateFile.size > 5 * 1024 * 1024) {
+                    alert('A imagem deve ter no máximo 5MB.');
+                    return;
+                }
 
-            // Limpar campos
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    documents[name] = {
+                        message: message,
+                        template: e.target.result
+                    };
+                    saveDocuments();
+                    updateDocumentsList();
+                    clearAddForm();
+                    showAddResult(name);
+                };
+                reader.readAsDataURL(templateFile);
+            } else {
+                // Sem imagem, salva apenas a mensagem
+                documents[name] = { message: message };
+                saveDocuments();
+                updateDocumentsList();
+                clearAddForm();
+                showAddResult(name);
+            }
+        }
+
+        // Função auxiliar para limpar formulário
+        function clearAddForm() {
             document.getElementById('documentName').value = '';
             document.getElementById('documentMessage').value = '';
+            document.getElementById('documentTemplate').value = '';
+            document.getElementById('templatePreview').style.display = 'none';
+        }
 
-            // Mostrar resultado
+        // Função auxiliar para mostrar resultado
+        function showAddResult(name) {
+            const resultDiv = document.getElementById('addResult');
+            const resultTitle = document.getElementById('addResultTitle');
+            const resultMessage = document.getElementById('addResultMessage');
+
             resultTitle.textContent = '✅ Documento Salvo!';
             resultMessage.textContent = `O documento "${name}" foi cadastrado com sucesso.`;
             resultDiv.classList.add('show');
 
-            // Esconder resultado após 3 segundos
             setTimeout(() => {
                 resultDiv.classList.remove('show');
             }, 3000);
@@ -533,21 +592,28 @@
         // Atualizar lista de documentos
         function updateDocumentsList() {
             const listDiv = document.getElementById('documentsList');
-
+            
             if (Object.keys(documents).length === 0) {
                 listDiv.innerHTML = '<div class="empty-state"><p>Nenhum documento cadastrado ainda.</p></div>';
                 return;
             }
 
-            listDiv.innerHTML = Object.entries(documents).map(([name, message]) => `
+            listDiv.innerHTML = Object.entries(documents).map(([name, data]) => {
+                const message = typeof data === 'string' ? data : data.message;
+                const hasTemplate = typeof data === 'object' && data.template;
+                
+                return `
                 <div class="document-item">
                     <div>
-                        <div class="document-name">${name}</div>
+                        <div class="document-name">${name} ${hasTemplate ? '📷' : ''}</div>
                         <div class="document-message">${message}</div>
                     </div>
-                    <button class="btn-delete" onclick="removeDocument('${name}')">🗑️ Remover</button>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        ${hasTemplate ? `<button class="btn-template" onclick="viewTemplate('${name}')">👁️ Ver Template</button>` : ''}
+                        <button class="btn-delete" onclick="removeDocument('${name}')">🗑️ Remover</button>
+                    </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         // Salvar documentos
@@ -562,54 +628,11 @@
             // Carrega dados de exemplo apenas se não foram inicializados
             if (!documentsInitialized) {
                 documents = {
-                    "meu INSS": `
-                    O Meu INSS deve conter o PDF do extrato de contribuição com todas as páginas legíveis e sem rasuras.<br><br>
-                    Para gerar corretamente o documento em PDF, siga este passo a passo:<br><br>
-                    1. Acesse o site: <a href="https://meu.inss.gov.br" target="_blank">https://meu.inss.gov.br</a><br>
-                    2. Clique em "Entrar com gov.br" e faça login com seu CPF e senha.<br>
-                    3. No menu inicial, selecione a opção "Extrato de Contribuição (CNIS)".<br>
-                    4. Clique em "Baixar PDF" no final da página.<br><br>
-                    O arquivo precisa estar completo, com todos os vínculos empregatícios visíveis.<br>
-                    Se quiser, pode me enviar aqui o arquivo antes de anexar na plataforma para que eu confira se está tudo certo.`,
-
-                    "Comprovante de Residência": "Deve conter data de emissão e ter sido emitido há no máximo 3 meses. Verifique se todos os dados foram preenchidos corretamente, como CEP, logradouro e complemento.",
-
+                    "meu INSS": "O meu INSS deve conter o PDF do extrato de contribuição, com todas as páginas legíveis e sem rasuras.",
+                    "RG": "O RG deve estar dentro do prazo de validade, frente e verso legíveis, sem dobras ou manchas.",
                     "CPF": "O CPF deve estar regular na Receita Federal. Verificar se não há pendências ou irregularidades.",
-
-
-                    "Carteira de Trabalho": "Anexar Carteira de trabalho digital, em pdf e contendo todos os vínculos.",
-
-                    "Conta Bancária": "Anexar comprovante contendo nome completo, agência e conta (verifique se todas as informações digitadas estão corretas). Lembrando que aceitamos apenas contas do banco Itaú.",
-
-                    "PIS": `
-                    É necessário informar o número do seu PIS/PASEP/NIT/NIS.<br><br>
-
-                    Caso não saiba o número, você pode consultar de forma rápida pelo site do Meu INSS.<br><br>
-
-                    Siga este passo a passo:<br><br>
-                    1. Acesse o site: <a href="https://meu.inss.gov.br" target="_blank">https://meu.inss.gov.br</a><br>
-                    2. Clique em "Entrar com gov.br" e faça login com seu CPF e senha.<br>
-                    3. No canto superior direito, clique sobre seu nome para abrir as informações do perfil.<br>
-                    4. O número do NIT será exibido — ele equivale ao seu PIS.<br><br>
-
-                    ⚠️ Certifique-se de copiar corretamente o número e incluir no campo solicitado na plataforma de envio de documentos.`,
-
-                    "Carta Proposta": " A carta proposta deve ser apenas uma folha de papel em branco.",
-
-                    "Exame Admissional": " Anexar o ASO (Atestado de Saúde Ocupacional) emitido após a realização do exame, em boa qualidade, com assinatura do médico e carimbo da clínica.",
-
-                    "Termo de Recursos Informáticos": "Deve ser assinado na própria plataforma",
-
-                    "Informações Complementares": "Preencher diretamente na plataforma",
-
-                    "Currículo Atualizado": "Anexar currículo atualizado",
-
-                    "Título de Eleitor": "Anexar frente e verso do documento, mostrando data de emissão, zona e seção. Verifique se todas as informações estão legíveis e corretas.",
-
-                    "RG": "Anexar frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão.",
-
-                   "Conflito de Interesses": "Anexar o termo assinado, seja digitalmente pelo site do GOV.br (<a href=\"https://www.gov.br/pt-br\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.gov.br/pt-br</a>) — para isso, faça login, envie o documento para assinatura, assine digitalmente e anexe o arquivo — ou impresso e assinado à mão."
-
+                    "Comprovante de residência": "Deve ter no máximo 3 meses de emissão, em nome do titular ou com declaração de residência.",
+                    "Carteira de trabalho": "Todas as páginas devem estar legíveis, incluindo dados pessoais e registros de trabalho."
                 };
                 documentsInitialized = true;
                 console.log('Documentos inicializados:', documents);
@@ -619,7 +642,7 @@
         // Exportar documentos
         function exportDocuments() {
             const dataStr = JSON.stringify(documents, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const url = URL.createObjectURL(dataBlob);
             const link = document.createElement('a');
             link.href = url;
@@ -634,7 +657,7 @@
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 try {
                     const importedData = JSON.parse(e.target.result);
                     if (confirm('Deseja substituir todos os documentos existentes pelos importados?')) {
@@ -649,6 +672,64 @@
             reader.readAsText(file);
         }
 
+        // Visualizar template
+        function viewTemplate(docName) {
+            const doc = documents[docName];
+            if (doc && doc.template) {
+                // Criar modal para visualizar a imagem
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10000;
+                    cursor: pointer;
+                `;
+                
+                const img = document.createElement('img');
+                img.src = doc.template;
+                img.style.cssText = `
+                    max-width: 90%;
+                    max-height: 90%;
+                    border-radius: 10px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                `;
+                
+                modal.appendChild(img);
+                document.body.appendChild(modal);
+                
+                // Fechar ao clicar
+                modal.onclick = () => document.body.removeChild(modal);
+            }
+        }
+
+        // Preview da imagem ao selecionar
+        document.addEventListener('DOMContentLoaded', function() {
+            const templateInput = document.getElementById('documentTemplate');
+            const previewDiv = document.getElementById('templatePreview');
+            const previewImg = document.getElementById('previewImage');
+
+            templateInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        previewDiv.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewDiv.style.display = 'none';
+                }
+            });
+        });
+
         // Limpar todos os documentos
         function clearAllDocuments() {
             if (confirm('Tem certeza que deseja remover TODOS os documentos? Esta ação não pode ser desfeita.')) {
@@ -659,19 +740,18 @@
         }
 
         // Permitir busca com Enter
-        document.getElementById('searchDocument').addEventListener('keypress', function (e) {
+        document.getElementById('searchDocument').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 searchDocument();
             }
         });
 
         // Permitir adicionar com Enter no campo de nome
-        document.getElementById('documentName').addEventListener('keypress', function (e) {
+        document.getElementById('documentName').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('documentMessage').focus();
             }
         });
     </script>
 </body>
-
 </html>
