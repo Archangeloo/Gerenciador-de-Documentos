@@ -334,7 +334,7 @@
             max-height: 400px;
             border: 2px solid #667eea;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .modal {
@@ -343,7 +343,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -355,7 +355,7 @@
             max-width: 90%;
             max-height: 90%;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -386,7 +386,7 @@
                 align-items: flex-start;
             }
 
-            .document-item > div:last-child {
+            .document-item>div:last-child {
                 margin-top: 15px;
                 display: flex;
                 gap: 8px;
@@ -513,7 +513,7 @@
             const previewDiv = document.getElementById('templatePreview');
             const previewImg = document.getElementById('previewImage');
 
-            templateInput.addEventListener('change', function(e) {
+            templateInput.addEventListener('change', function (e) {
                 const file = e.target.files[0];
                 if (file) {
                     // Verificar tamanho
@@ -525,7 +525,7 @@
                     }
 
                     const reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         previewImg.src = e.target.result;
                         previewDiv.style.display = 'block';
                     };
@@ -651,7 +651,7 @@
                 }
 
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     documents[name] = {
                         message: message,
                         template: e.target.result
@@ -705,13 +705,13 @@
             if (doc && doc.template) {
                 const modal = document.createElement('div');
                 modal.className = 'modal';
-                
+
                 const img = document.createElement('img');
                 img.src = doc.template;
-                
+
                 modal.appendChild(img);
                 document.body.appendChild(modal);
-                
+
                 modal.onclick = () => document.body.removeChild(modal);
             }
         }
@@ -728,7 +728,7 @@
             listDiv.innerHTML = Object.entries(documents).map(([name, data]) => {
                 const message = typeof data === 'string' ? data : data.message;
                 const hasTemplate = typeof data === 'object' && data.template;
-                
+
                 return `
                 <div class="document-item">
                     <div>
@@ -764,7 +764,7 @@
                         template: './images/download.png'
                     },
                     "Comprovante de Residência": {
-                        message: "Deve conter data de emissão e ter sido emitido há no máximo 3 meses. Verifique se todos os dados foram preenchidos corretamente, como CEP, logradouro e complemento.",
+                        message: "O Comprovante de endereço deve conter Data de emissão dentro dos últimos 3 meses.Verifique se todos os dados foram preenchidos corretamente, como CEP, logradouro e complemento.",
                         template: './images/residencia.png'
                     },
                     "RG": {
@@ -772,7 +772,7 @@
                         template: "./images/rg.jpeg"
                     },
                     "CPF": {
-                        message: "O CPF deve estar regular na Receita Federal. Verificar se não há pendências ou irregularidades.",
+                        message: "O CPF deve estar regular na Receita Federal. Verificar se o número foi digitado corretamente.",
                         template: "./images/cpf.jpg"
                     },
                     "Carteira de Trabalho": {
@@ -780,68 +780,89 @@
                         template: "./images/ctps.jpg"
                     },
                     "Conta Bancária": {
-                        message: "Anexar comprovante contendo nome completo, agência e conta (verifique se todas as informações digitadas estão corretas). Lembrando que aceitamos apenas contas do banco Itaú.",
-                        template: "./images/conta.png" 
+                        message: "Anexar comprovante contendo nome completo, agência e conta, pode ser um print da primeira página do aplicativo do banco (verifique se todas as informações digitadas estão corretas). Lembrando que aceitamos apenas contas do banco Itaú.",
+                        template: "./images/conta.png"
+                    },
+                    "PIS": {
+                        message: "O PIS deve estar regular na Caixa Econômica Federal. Verificar se o número foi digitado corretamente.",
+                        template: "./images/conta.png"
+                    },
+                    "Certificado de Reservista": {
+                        message: "Anexar documento aberto mostrando frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão.",
+                        template: "./images/conta.png"
+                    },
+                    "Foto Digital": {
+                        message: "A foto deve ser recente, com fundo claro e sem acessórios que cubram o rosto. Verifique se a imagem está nítida e bem iluminada.",
+                        template: "./images/conta.png"
+                    },
+                    "Título de Eleitor": {
+                        message: "Anexar frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão. Caso seja E-titulo anexar um print do QR Code contendo data e hora da emissão.",
+                        template: "./images/conta.png"
+                    },
+                    "Comprovante de Escolaridade": {
+                        message: "Anexar certificado de conclusão do ensino médio ou diploma de graduação, com todas as informações legíveis e corretas, incluindo data de emissão. Histórico escolar não é aceito.",
+                        template: "./images/conta.png"
                     }
+
                 }
-            }
-        }
 
-        // Exportar documentos
-        function exportDocuments() {
-            const dataStr = JSON.stringify(documents, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'documentos_verificacao.json';
-            link.click();
-            URL.revokeObjectURL(url);
-        }
+                // Exportar documentos
+                function exportDocuments() {
+                    const dataStr = JSON.stringify(documents, null, 2);
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                    const url = URL.createObjectURL(dataBlob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'documentos_verificacao.json';
+                    link.click();
+                    URL.revokeObjectURL(url);
+                }
 
-        // Importar documentos
-        function importDocuments(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+                // Importar documentos
+                function importDocuments(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    if (confirm('Deseja substituir todos os documentos existentes pelos importados?')) {
-                        documents = importedData;
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        try {
+                            const importedData = JSON.parse(e.target.result);
+                            if (confirm('Deseja substituir todos os documentos existentes pelos importados?')) {
+                                documents = importedData;
+                                updateDocumentsList();
+                                alert('Documentos importados com sucesso!');
+                            }
+                        } catch (error) {
+                            alert('Erro ao importar arquivo. Verifique se é um arquivo JSON válido.');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+
+                // Limpar todos os documentos
+                function clearAllDocuments() {
+                    if (confirm('Tem certeza que deseja remover TODOS os documentos? Esta ação não pode ser desfeita.')) {
+                        documents = {};
                         updateDocumentsList();
-                        alert('Documentos importados com sucesso!');
+                        alert('Todos os documentos foram removidos.');
                     }
-                } catch (error) {
-                    alert('Erro ao importar arquivo. Verifique se é um arquivo JSON válido.');
                 }
-            };
-            reader.readAsText(file);
-        }
 
-        // Limpar todos os documentos
-        function clearAllDocuments() {
-            if (confirm('Tem certeza que deseja remover TODOS os documentos? Esta ação não pode ser desfeita.')) {
-                documents = {};
-                updateDocumentsList();
-                alert('Todos os documentos foram removidos.');
+                // Event listeners
+                document.getElementById('searchDocument').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        searchDocument();
+                    }
+                });
+
+                document.getElementById('documentName').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        document.getElementById('documentMessage').focus();
+                    }
+                });
             }
         }
-
-        // Event listeners
-        document.getElementById('searchDocument').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                searchDocument();
-            }
-        });
-
-        document.getElementById('documentName').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                document.getElementById('documentMessage').focus();
-            }
-        });
     </script>
 </body>
-
+        
 </html>
