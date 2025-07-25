@@ -618,16 +618,7 @@
                 resultMessage.innerHTML = message;
 
                 if (template) {
-                    // Suporte para múltiplas imagens (array)
-                    if (Array.isArray(template)) {
-                        templateDiv.innerHTML = '<h4>📷 Template de Exemplo:</h4>' +
-                            template.map(src => `<img src="${src}" alt="Template do documento" style="max-width:100%;max-height:400px;margin-bottom:10px;border:2px solid #667eea;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,0.1);display:block;">`).join('');
-                    } else {
-                        templateImg.src = template;
-                        templateDiv.style.display = 'block';
-                        // Garante que o título e a imagem estejam presentes
-                        templateDiv.innerHTML = '<h4>📷 Template de Exemplo:</h4><img id="displayTemplate" src="' + template + '" alt="Template do documento">';
-                    }
+                    templateImg.src = template;
                     templateDiv.style.display = 'block';
                 } else {
                     templateDiv.style.display = 'none';
@@ -770,108 +761,108 @@
                         4. Clique em "Baixar PDF" no final da página.<br><br>
                         O arquivo precisa estar completo, com todos os vínculos empregatícios visíveis.<br>
                         Se quiser, pode me enviar aqui o arquivo antes de anexar na plataforma para que eu confira se está tudo certo.`,
-                        template: './images/inss.png'
+                        template: "./images/inss.png"
                     },
                     "Comprovante de Residência": {
-                        message: "O Comprovante de endereço deve conter Data de emissão dentro dos últimos 3 meses.Verifique se todos os dados foram preenchidos corretamente, como CEP, logradouro e complemento.",
-                        template: './images/residenciaa.png'
+                        message: "Deve conter data de emissão e ter sido emitido há no máximo 3 meses. Verifique se todos os dados foram preenchidos corretamente, como CEP, logradouro e complemento.",
+                        template: "./images/residenciaa.png"
                     },
                     "RG": {
                         message: "Anexar frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão.",
-                        template: ["./images/RG.png", "./images/rg2.png"]
+                        template: "./images/rg.png"
                     },
                     "CPF": {
                         message: "O CPF deve estar regular na Receita Federal. Verificar se o número foi digitado corretamente.",
-                        template: "./images/CPF.png"
+                        template: "./images/cpf.png"
                     },
                     "Carteira de Trabalho": {
-                        message: "Anexar Carteira de trabalho digital, em pdf e contendo todos os vínculos.",
-                        template: ["./images/ctps.png", "./images/ctps2.png"]
+                        "message": "Anexar Carteira de trabalho digital, em pdf e contendo todos os vínculos.",
+                        "template": "./images/ctps.png"
                     },
                     "Conta Bancária": {
-                        message: "Anexar comprovante contendo nome completo, agência e conta, pode ser um print da primeira página do aplicativo do banco (verifique se todas as informações digitadas estão corretas). Lembrando que aceitamos apenas contas do banco Itaú.",
+                        message: "Anexar comprovante contendo nome completo, agência e conta (verifique se todas as informações digitadas estão corretas). Lembrando que aceitamos apenas contas do banco Itaú.",
                         template: "./images/contaBancaria.png"
                     },
-                    "PIS": {
+                    "Pis": {
                         message: "O PIS deve estar regular na Caixa Econômica Federal. Verificar se o número foi digitado corretamente.",
-                        template: "./images/PIS.png"
+                        template: "./images/pis.png"
+                    },
+                    "Comprovante Escolar": {
+                        message: "Anexar certificado de conclusão do ensino médio ou declaração de matrícula atualizada, histórico escolar não é um documento válido.",
+                        template: "./images/escolaridade.png"
                     },
                     "Certificado de Reservista": {
-                        message: "Anexar documento aberto mostrando frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão.",
+                        message: "Anexar certificado de reservista ou dispensa aberto (mostrando frente e verso) comprovando a regularidade com o serviço militar.",
                         template: "./images/reservista.png"
                     },
-                    "Foto Digital": {
-                        message: "A foto deve ser recente, com fundo claro e sem acessórios que cubram o rosto. Verifique se a imagem está nítida e bem iluminada.",
-                        template: "./images/Foto.png"
+                    "Foto digital": {
+                        message: "Enviar uma foto recente, com boa iluminação e fundo neutro, onde o rosto esteja visível e sem óculos escuros ou chapéus.",
+                        template: "./images/foto.png"
                     },
                     "Título de Eleitor": {
-                        message: "Anexar frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão. Caso seja E-titulo anexar um print do QR Code contendo data e hora da emissão.",
-                        template: ["./images/titulo.png", "./images/titulo2.png"]
+                        message: "Anexar frente e verso do título de eleitor, com todas as informações legíveis e corretas, incluindo data de emissão.",
+                        template: "./images/titulo.png"
                     },
-                    "Comprovante de Escolaridade": {
-                        message: "Anexar certificado de conclusão do ensino médio ou diploma de graduação, com todas as informações legíveis e corretas, incluindo data de emissão. Histórico escolar não é aceito.",
-                        template: "./images/escolaridade.png"
-                    }
-
-                }
-
-                // Exportar documentos
-                function exportDocuments() {
-                    const dataStr = JSON.stringify(documents, null, 2);
-                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                    const url = URL.createObjectURL(dataBlob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'documentos_verificacao.json';
-                    link.click();
-                    URL.revokeObjectURL(url);
-                }
-
-                // Importar documentos
-                function importDocuments(event) {
-                    const file = event.target.files[0];
-                    if (!file) return;
-
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        try {
-                            const importedData = JSON.parse(e.target.result);
-                            if (confirm('Deseja substituir todos os documentos existentes pelos importados?')) {
-                                documents = importedData;
-                                updateDocumentsList();
-                                alert('Documentos importados com sucesso!');
-                            }
-                        } catch (error) {
-                            alert('Erro ao importar arquivo. Verifique se é um arquivo JSON válido.');
-                        }
-                    };
-                    reader.readAsText(file);
-                }
-
-                // Limpar todos os documentos
-                function clearAllDocuments() {
-                    if (confirm('Tem certeza que deseja remover TODOS os documentos? Esta ação não pode ser desfeita.')) {
-                        documents = {};
-                        updateDocumentsList();
-                        alert('Todos os documentos foram removidos.');
-                    }
-                }
-
-                // Event listeners
-                document.getElementById('searchDocument').addEventListener('keypress', function (e) {
-                    if (e.key === 'Enter') {
-                        searchDocument();
-                    }
-                });
-
-                document.getElementById('documentName').addEventListener('keypress', function (e) {
-                    if (e.key === 'Enter') {
-                        document.getElementById('documentMessage').focus();
-                    }
-                });
+                };
+                documentsInitialized = true;
             }
         }
+
+        // Exportar documentos
+        function exportDocuments() {
+            const dataStr = JSON.stringify(documents, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'documentos_verificacao.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Importar documentos
+        function importDocuments(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (confirm('Deseja substituir todos os documentos existentes pelos importados?')) {
+                        documents = importedData;
+                        updateDocumentsList();
+                        alert('Documentos importados com sucesso!');
+                    }
+                } catch (error) {
+                    alert('Erro ao importar arquivo. Verifique se é um arquivo JSON válido.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Limpar todos os documentos
+        function clearAllDocuments() {
+            if (confirm('Tem certeza que deseja remover TODOS os documentos? Esta ação não pode ser desfeita.')) {
+                documents = {};
+                updateDocumentsList();
+                alert('Todos os documentos foram removidos.');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('searchDocument').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchDocument();
+            }
+        });
+
+        document.getElementById('documentName').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('documentMessage').focus();
+            }
+        });
     </script>
 </body>
-        
+
 </html>
