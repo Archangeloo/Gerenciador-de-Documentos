@@ -618,7 +618,16 @@
                 resultMessage.innerHTML = message;
 
                 if (template) {
-                    templateImg.src = template;
+                    // Suporte para múltiplas imagens (array)
+                    if (Array.isArray(template)) {
+                        templateDiv.innerHTML = '<h4>📷 Template de Exemplo:</h4>' +
+                            template.map(src => `<img src="${src}" alt="Template do documento" style="max-width:100%;max-height:400px;margin-bottom:10px;border:2px solid #667eea;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,0.1);display:block;">`).join('');
+                    } else {
+                        templateImg.src = template;
+                        templateDiv.style.display = 'block';
+                        // Garante que o título e a imagem estejam presentes
+                        templateDiv.innerHTML = '<h4>📷 Template de Exemplo:</h4><img id="displayTemplate" src="' + template + '" alt="Template do documento">';
+                    }
                     templateDiv.style.display = 'block';
                 } else {
                     templateDiv.style.display = 'none';
@@ -761,47 +770,47 @@
                         4. Clique em "Baixar PDF" no final da página.<br><br>
                         O arquivo precisa estar completo, com todos os vínculos empregatícios visíveis.<br>
                         Se quiser, pode me enviar aqui o arquivo antes de anexar na plataforma para que eu confira se está tudo certo.`,
-                        template: './images/download.png'
+                        template: './images/inss.png'
                     },
                     "Comprovante de Residência": {
                         message: "O Comprovante de endereço deve conter Data de emissão dentro dos últimos 3 meses.Verifique se todos os dados foram preenchidos corretamente, como CEP, logradouro e complemento.",
-                        template: './images/residencia.png'
+                        template: './images/residenciaa.png'
                     },
                     "RG": {
                         message: "Anexar frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão.",
-                        template: "./images/rg.jpeg"
+                        template: ["./images/rg.png", "./images/rg2.png"]
                     },
                     "CPF": {
                         message: "O CPF deve estar regular na Receita Federal. Verificar se o número foi digitado corretamente.",
-                        template: "./images/cpf.jpg"
+                        template: "./images/cpf.png"
                     },
                     "Carteira de Trabalho": {
                         message: "Anexar Carteira de trabalho digital, em pdf e contendo todos os vínculos.",
-                        template: "./images/ctps.jpg"
+                        template: ["./images/ctps.png", "./images/ctps2.png"]
                     },
                     "Conta Bancária": {
                         message: "Anexar comprovante contendo nome completo, agência e conta, pode ser um print da primeira página do aplicativo do banco (verifique se todas as informações digitadas estão corretas). Lembrando que aceitamos apenas contas do banco Itaú.",
-                        template: "./images/conta.png"
+                        template: "./images/contaBancaria.png"
                     },
                     "PIS": {
                         message: "O PIS deve estar regular na Caixa Econômica Federal. Verificar se o número foi digitado corretamente.",
-                        template: "./images/conta.png"
+                        template: "./images/pis.png"
                     },
                     "Certificado de Reservista": {
                         message: "Anexar documento aberto mostrando frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão.",
-                        template: "./images/conta.png"
+                        template: "./images/reservista.png"
                     },
                     "Foto Digital": {
                         message: "A foto deve ser recente, com fundo claro e sem acessórios que cubram o rosto. Verifique se a imagem está nítida e bem iluminada.",
-                        template: "./images/conta.png"
+                        template: "./images/foto.png"
                     },
                     "Título de Eleitor": {
                         message: "Anexar frente e verso do documento com todas as informações legíveis e corretas, incluindo data de emissão. Caso seja E-titulo anexar um print do QR Code contendo data e hora da emissão.",
-                        template: "./images/conta.png"
+                        template: ["./images/titulo.png", "./images/titulo2.png"]
                     },
                     "Comprovante de Escolaridade": {
                         message: "Anexar certificado de conclusão do ensino médio ou diploma de graduação, com todas as informações legíveis e corretas, incluindo data de emissão. Histórico escolar não é aceito.",
-                        template: "./images/conta.png"
+                        template: "./images/escolaridade.png"
                     }
 
                 }
